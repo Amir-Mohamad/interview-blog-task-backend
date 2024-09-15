@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    
+    "core.apps.CoreConfig",
+    "users.apps.UsersConfig",
+    
     "rest_framework",
     "corsheaders"
 ]
@@ -51,9 +54,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    "core.apps.CoreConfig",
-    "users.apps.UsersConfig",
+
 ]
+AUTH_USER_MODEL = "users.User"
 
 ROOT_URLCONF = 'config.urls'
 
@@ -120,8 +123,19 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-STATIC_URL = 'static/'
+# URL prefix for static files
+STATIC_URL = '/static/'
+
+# The absolute path to the directory where static files will be collected
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Optional: Additional locations to look for static files
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # Custom folder for static files
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
